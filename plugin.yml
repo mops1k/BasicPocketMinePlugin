@@ -1,4 +1,4 @@
-name: Base mops1k plugin
-main: mops1k\Plugin
+name: Base plugin
+main: BasePlugin\Plugin
 version: 0.1
 api: 2.0.0

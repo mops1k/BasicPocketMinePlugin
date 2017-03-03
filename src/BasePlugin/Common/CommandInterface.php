@@ -1,5 +1,5 @@
 <?php
-namespace mops1k\Common;
+namespace BasePlugin\Common;
 
 use pocketmine\command\CommandSender;
 

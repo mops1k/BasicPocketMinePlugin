@@ -1,10 +1,10 @@
 <?php
-namespace mops1k;
+namespace BasePlugin;
 
-use mops1k\Common\CommandInterface;
-use mops1k\Common\DatabaseBridge;
-use mops1k\Exception\WrongCommandClassException;
-use mops1k\Exception\WrongListenerClassException;
+use BasePlugin\Common\CommandInterface;
+use BasePlugin\Common\DatabaseBridge;
+use BasePlugin\Exception\WrongCommandClassException;
+use BasePlugin\Exception\WrongListenerClassException;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
@@ -15,7 +15,11 @@ class Plugin extends PluginBase
     /** @var Plugin */
     public static $instance;
     /** @var DatabaseBridge */
-    private $db;
+    public $db;
+    /** @var string */
+    private $namespace;
+    /** @var array */
+    private $pluginConfig = [];
 
     /**
      * Plugin constructor.
@@ -24,6 +28,8 @@ class Plugin extends PluginBase
     {
         self::$instance = $this;
         $this->db = new DatabaseBridge();
+        $this->pluginConfig = \PluginConfig::getConfiguration();
+        $this->namespace = $this->pluginConfig['namespace'];
     }
 
     /**
@@ -46,10 +52,12 @@ class Plugin extends PluginBase
         }
         $this->saveDefaultConfig();
 
-        $this->db->connect();
+        if ($this->getConfig()->get('database.enabled', false)) {
+            $this->db->connect();
+        }
 
         foreach ($this->getListeners() as $listener) {
-            $listener = "\\mops1k\\Listener\\" . ucfirst($listener) . "Listener";
+            $listener = $this->namespace . "\\Listener\\" . ucfirst($listener) . "Listener";
             $listenerClass = new $listener();
             if (!$listenerClass instanceof Listener) {
                 throw new WrongListenerClassException();
@@ -67,7 +75,7 @@ class Plugin extends PluginBase
     public function onCommand(CommandSender $sender, Command $command, $commandLabel, array $args)
     {
         if (in_array($command->getName(), $this->getCommands())) {
-            $name = "\\mops1k\\Command\\" . ucfirst($command->getName()) . "Command";
+            $name = $this->namespace . "\\Command\\" . ucfirst($command->getName()) . "Command";
 
             $commandClass = new $name();
             if (!$commandClass instanceof CommandInterface) {
@@ -98,7 +106,7 @@ class Plugin extends PluginBase
      */
     private function getCommands()
     {
-        return [];
+        return $this->pluginConfig['commands'];
     }
 
     /**
@@ -106,6 +114,6 @@ class Plugin extends PluginBase
      */
     private function getListeners()
     {
-        return [];
+        return $this->pluginConfig['listeners'];
     }
 }

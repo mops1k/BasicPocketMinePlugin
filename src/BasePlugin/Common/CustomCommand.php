@@ -1,12 +1,12 @@
 <?php
-namespace mops1k\Common;
+namespace BasePlugin\Common;
 
-use mops1k\Plugin;
+use BasePlugin\Plugin;
 
 abstract class CustomCommand implements CommandInterface
 {
     /** @var Plugin */
-    private $plugin;
+    protected $plugin;
 
     /**
      * CartCommand constructor.

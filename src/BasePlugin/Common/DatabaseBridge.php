@@ -1,8 +1,8 @@
 <?php
-namespace mops1k\Common;
+namespace BasePlugin\Common;
 
 use LessQL\Database;
-use mops1k\Plugin;
+use BasePlugin\Plugin;
 
 class DatabaseBridge
 {

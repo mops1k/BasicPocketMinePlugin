@@ -1,5 +1,5 @@
 <?php
-namespace mops1k\Exception;
+namespace BasePlugin\Exception;
 
 use Exception;
 

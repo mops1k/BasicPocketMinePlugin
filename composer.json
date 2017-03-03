@@ -1,0 +1,5 @@
+{
+    "require": {
+        "kherge/box": "^2.7"
+    }
+}

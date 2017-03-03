@@ -1,0 +1,18 @@
+{
+  "alias": "getItems",
+  "directories": [
+    "src/LessQL",
+    "src/mops1k",
+    "src/mops1k/Command",
+    "src/mops1k/Listener",
+    "src/mops1k/Common",
+    "src/mops1k/Exception"
+  ],
+  "files": [
+    "plugin.yml",
+    "resources/config.yml"
+  ],
+  "main": "src/mops1k/Plugin.php",
+  "output": "getItems.phar",
+  "stub": true
+}

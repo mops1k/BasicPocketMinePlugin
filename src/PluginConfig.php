@@ -1,13 +1,15 @@
 <?php
+namespace {
 
-class PluginConfig
-{
-    public static function getConfiguration()
+    class PluginConfig
     {
-        return [
-            'namespace' => null,
-            'commands'  => [],
-            'listeners' => [],
-        ];
+        public static function getConfiguration()
+        {
+            return [
+                'namespace' => null,
+                'commands'  => [],
+                'listeners' => [],
+            ];
+        }
     }
 }

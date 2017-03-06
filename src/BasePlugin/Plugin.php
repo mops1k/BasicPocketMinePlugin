@@ -52,7 +52,7 @@ class Plugin extends PluginBase
         }
         $this->saveDefaultConfig();
 
-        if ($this->getConfig()->get('database.enabled', false)) {
+        if ($this->getConfig()->getNested('database')['enabled']) {
             $this->db->connect();
         }
 
